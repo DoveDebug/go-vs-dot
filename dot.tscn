@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://0d5wb838mpvy"]
+
+[ext_resource type="Script" uid="uid://drpy3djtygtbq" path="res://dot.gd" id="1_swi4y"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_swi4y"]
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_yc5i5"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_yjt17"]
+specular_texture = SubResource("Texture2DRD_yc5i5")
+specular_color = Color(0.40142885, 0.9999997, 0.82131547, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypqmy"]
+
+[node name="Dot" type="RigidBody2D"]
+mass = 0.058
+physics_material_override = SubResource("PhysicsMaterial_swi4y")
+gravity_scale = 0.0
+script = ExtResource("1_swi4y")
+
+[node name="DotColor" type="Sprite2D" parent="."]
+scale = Vector2(20, 20)
+texture = SubResource("CanvasTexture_yjt17")
+
+[node name="DotCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ypqmy")
+debug_color = Color(0.9055029, 0.00013418854, 0.7481071, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
