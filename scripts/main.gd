@@ -1,8 +1,9 @@
 extends Node2D
 @export var score: int = 0
-var health: int = 5
+@export var health: int = 5
 var screen_size = DisplayServer.window_get_size()
-var bad_dot_start = 2
+var rng = RandomNumberGenerator.new()
+var bad_dot_start = rng.randi_range(6,12)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,9 +11,9 @@ func _ready() -> void:
 	$Score_Display.text = "Score: " + str(score)
 	$Health_Display.text = str(health) + " :Health"
 
-const dot = preload("res://dot.tscn")
-const bad_dot = preload("res://bad_dot.tscn")
-var rng = RandomNumberGenerator.new()
+const dot = preload("res://scenes/dot.tscn")
+const bad_dot = preload("res://scenes/bad_dot.tscn")
+
 
 func create_dot() -> void:
 	var random_number_x = rng.randi_range(0,screen_size.x)
@@ -49,3 +50,4 @@ func update_health(damage: int) -> void:
 func _process(delta: float) -> void:
 	if health==0 and is_instance_valid($Player):
 		$Player.queue_free()
+		

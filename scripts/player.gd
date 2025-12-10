@@ -2,21 +2,26 @@ extends Node2D
 
 var speed = 400
 var screen_size = DisplayServer.window_get_size()
+var painful_sound
 
-#var score = Screen.score
+
 
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	painful_sound = load("res://assets/sounds/hit_sound_1.mp3")
+	
+func play_hit_sound():
+	$Player_sounds.stream = painful_sound
+	$Player_sounds.play()
+	painful_sound = load("res://assets/sounds/hit_sound_2.mp3")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var velocity = Vector2.ZERO
-	var player_size = $PlayerSprite.texture.get_size() * $PlayerSprite.scale
+	var player_size = $Player_sprite.texture.get_size() * $Player_sprite.scale
 	var border = screen_size - Vector2i(player_size.x, player_size.y)
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1*speed
@@ -29,8 +34,8 @@ func _process(delta: float) -> void:
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 	position += velocity * delta
-	
 	position = position.clamp(Vector2.ZERO, border)
+	
 	
 
 
@@ -43,8 +48,10 @@ func _on_body_entered(body: Node2D) -> void:
 		if get_parent().score % 5 == 0:
 			speed *= 1.1
 	if body.is_in_group("bad_dots"):
+		play_hit_sound()
 		body.queue_free()
 		get_parent().update_health(1)
+		rotation_degrees += 50
+		rotation_degrees -= 50
 		
-		#print(score)
 	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://0d5wb838mpvy"]
 
-[ext_resource type="Script" uid="uid://drpy3djtygtbq" path="res://dot.gd" id="1_swi4y"]
+[ext_resource type="Script" uid="uid://drpy3djtygtbq" path="res://scripts/dot.gd" id="1_c4igg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_swi4y"]
 
@@ -16,7 +16,7 @@ specular_color = Color(0.40142885, 0.9999997, 0.82131547, 1)
 mass = 0.058
 physics_material_override = SubResource("PhysicsMaterial_swi4y")
 gravity_scale = 0.0
-script = ExtResource("1_swi4y")
+script = ExtResource("1_c4igg")
 
 [node name="DotColor" type="Sprite2D" parent="."]
 scale = Vector2(20, 20)
